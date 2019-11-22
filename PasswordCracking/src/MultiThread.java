@@ -24,12 +24,15 @@ public class MultiThread implements Runnable {
 	
 	public void loop (int index, int min, int max) {
 		for (int i=min; i<max; i++) {
+			// set the char value where index is the position in the string
 			string.setCharAt(index, (char) i);
 			if(index < string.length() - 1)
 				loop(index + 1, 32, 127);
 			//System.out.println(string);
+			// when the password is found it should exit 
 			if(flag)
 				break;
+			// Verifies if the password was found and interrupt the rest of the threads
 			if(string.toString().equals(password)) {
 				System.out.println("Password found with multi-thread: " + string);
 				System.out.println("It took: " + (System.currentTimeMillis() - start) + " milliseconds.");
@@ -43,18 +46,18 @@ public class MultiThread implements Runnable {
 		}
 	}
 	
-	// Here is where the magic happens
 	public void run() {
 		try {
 			start = System.currentTimeMillis();
+			// For loop from the first char of the thread to the last one
 			for (int i=min; i<max; i++) {
 				Thread.sleep(0);
+				// Call the recursive function
 				string.setCharAt(0, (char) i);
 				loop(1, 32, 127);
 			}
 		}
 		catch (InterruptedException e) {
-			// Message from the rabbit when the turtle wins and interrupt him.
 			System.out.println("Stopped");
 		}
 	}

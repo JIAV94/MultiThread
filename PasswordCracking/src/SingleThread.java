@@ -15,12 +15,16 @@ public class SingleThread {
 	
 	public void loop (int index, int min, int max) {
 		for (int i=min; i<max; i++) {
+			// set the char value where index is the position in the string
 			string.setCharAt(index, (char) i);
 			if(index < string.length() - 1)
 				loop(index + 1, 32, 127);
 			//System.out.println(string);
+			
+			// when the password is found it should exit 
 			if(flag)
 				break;
+			// Verifies if the password was found and exit the loop
 			if(string.toString().equals(password)) {
 				System.out.println("Password found with single thread: " + string);
 				System.out.println("It took: " + (System.currentTimeMillis() - start) + " milliseconds.");
